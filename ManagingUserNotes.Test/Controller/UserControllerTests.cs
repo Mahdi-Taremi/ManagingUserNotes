@@ -18,41 +18,26 @@ namespace ManagingUserNotes.Test.Controller
     public class UserControllerTests
     {
         private readonly Mock<IUserRepository> _userRepository;
-        //private readonly IMapper _mapper;
         private readonly Mock<IMapper> _mapper;
 
         public UserControllerTests()
         {
             _userRepository = new Mock<IUserRepository>();
-            //if (_mapper == null)
-            //{
-            //    var mappingConfig = new MapperConfiguration(mc =>
-            //    {
-            //        mc.AddProfile(new UserProfile());
-            //    });
-            //    IMapper mapper = mappingConfig.CreateMapper();
-            //    _mapper = mapper;
-            //}
             _mapper = new Mock<IMapper>();
         }
 
         // Return a json contains all users without notes
         [Fact]
         public async Task CanGetAllUsers_GetUsers_ReturnAJsonContainsAllUsersWithoutNotes()
-        // public async void CanGetAllUsers_GetUsers_ReturnAJsonContainsAllUsersWithoutNotes() *Async
-        // public void CanGetAllUsers_GetUsers_ReturnAJsonContainsAllUsersWithoutNotes()
         {
             // Arrange
             var userListData = GetUserData();
             _mapper.Setup(m => m.Map<IEnumerable<User>,List<User>>(It.IsAny<IEnumerable<User>>())).Returns(userListData);
-            //_userRepository.Setup(e => e.GetUsersAsync()).ReturnsAsync(userListData); 
-            //_userRepository.Setup(e => e.GetUsersAsync()).Returns(userListData);
-            //var usersController = new UsersController(_userRepository.Object);
             var usersController = new UsersController(_userRepository.Object, _mapper.Object);
 
             // Act 
             var usersResult = await usersController.GetUsers();
-            var testType = usersResult.GetType().ToString();
+            //var testType = usersResult.GetType().ToString();
 
             // Assert 
             Assert.NotNull(usersResult);

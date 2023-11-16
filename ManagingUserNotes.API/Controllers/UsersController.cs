@@ -15,7 +15,6 @@ namespace ManagingUserNotes.API.Controllers
 
 
         public UsersController(IUserRepository userRepository, IMapper mapper)
-        //public UsersController(IUserRepository userRepository)
         {
             _userRepository = userRepository ?? throw new AggregateException(nameof(userRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
@@ -28,21 +27,6 @@ namespace ManagingUserNotes.API.Controllers
         {
             var users = await _userRepository.GetUsersAsync();
             return Ok(_mapper.Map<IEnumerable<UserWithoutNotesDto>>(users));
-
-            //var result = new List<UserDto>();
-            //foreach (var user in users)
-            //{
-            //    result.Add(new UserDto()
-            //    {
-            //        Id = user.Id,
-            //        FirstName = user.FirstName,
-            //        LastName = user.LastName,
-            //        Email = user.Email,
-            //        Age = user.Age,
-            //        Website = user.Website,
-            //    });
-            //}
-            //return Ok(result);
         }
     }
 }
