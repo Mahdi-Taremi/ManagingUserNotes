@@ -15,10 +15,11 @@ namespace ManagingUserNotes.API.Controllers
         private readonly INoteRepository _noteRepository;
         private readonly IMapper _mapper;
 
-        public NotesController(INoteRepository noteRepository, IMapper mapper)
+        //public NotesController(INoteRepository noteRepository, IMapper mapper)
+        public NotesController(INoteRepository noteRepository)
         {
             _noteRepository = noteRepository ?? throw new AggregateException(nameof(noteRepository));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            //_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
@@ -30,7 +31,8 @@ namespace ManagingUserNotes.API.Controllers
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<NoteDto>(notes));
+            return Ok(notes);
+            //return Ok(_mapper.Map<NoteDto>(notes));
         }
     }
 }

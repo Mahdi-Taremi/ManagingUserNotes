@@ -29,11 +29,14 @@ namespace ManagingUserNotes.Test.Controller
         {
             // Arrange 
             var noteData = GetNoteData();
-            _mapper.Setup(m => m.Map<IEnumerable<Note>, List<Note>>(It.IsAny<IEnumerable<Note>>())).Returns(noteData);
-            var notesController = new NotesController(_noteRepository.Object, _mapper.Object);
+            //_mapper.Setup(m => m.Map<IEnumerable<Note>, List<Note>>(It.IsAny<IEnumerable<Note>>())).Returns(noteData);
+            //var notesController = new NotesController(_noteRepository.Object, _mapper.Object);
+
+            _noteRepository.Setup(e => e.GetNotesByUserIdAsync(1)).ReturnsAsync(noteData);
+            var notesController = new NotesController(_noteRepository.Object);
 
             // Act 
-            var noteResult = await notesController.GetNotesByUserId(2);
+            var noteResult = await notesController.GetNotesByUserId(1);
 
 
             // Assert 

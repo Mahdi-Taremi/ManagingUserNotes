@@ -2,6 +2,7 @@ using ManagingUserNotes.API.DataAccess;
 using ManagingUserNotes.API.Repositoties.Interfaces;
 using ManagingUserNotes.API.Repositoties.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
