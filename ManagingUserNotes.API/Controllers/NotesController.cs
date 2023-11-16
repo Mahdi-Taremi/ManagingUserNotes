@@ -34,5 +34,17 @@ namespace ManagingUserNotes.API.Controllers
             return Ok(notes);
             //return Ok(_mapper.Map<NoteDto>(notes));
         }
+
+        [HttpGet]
+        [Route("GetNoteById/{id}")]
+        public async Task<IActionResult> GetNoteById(int id)
+        {
+            var note = await _noteRepository.GetNoteByIdAsync(id);
+            if (note == null)
+            {
+                return NotFound();
+            }
+            return Ok(note);
+        }
     }
 }
