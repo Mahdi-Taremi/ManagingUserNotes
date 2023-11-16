@@ -66,6 +66,24 @@ namespace ManagingUserNotes.Test.Controller
         }
         #endregion
 
+        // Delete User With All Notes
+        #region DeleteUser
+        [Fact]
+        public async Task CanDeleteOneUserById_DeleteUserById_DeleteUserWithAllNotes()
+        {
+            // Arrange 
+            var userData = GetUserDataForDelete();
+            _mapper.Setup(m => m.Map<IEnumerable<User>, List<User>>(It.IsAny<IEnumerable<User>>())).Returns(userData);
+            var usersController = new UsersController(_userRepository.Object, _mapper.Object);
+
+            // Act 
+            var userResult = await usersController.DeleteUserById(1);
+
+            // Assert 
+            Assert.Null(userResult);
+        }
+        #endregion
+
 
         #region GetUserData(Fake)
         private List<User> GetUserData()
@@ -104,6 +122,26 @@ namespace ManagingUserNotes.Test.Controller
             return usersData;
         }
         #endregion
+
+        #region GetUserDataForDelete(Fake)
+        private List<User> GetUserDataForDelete()
+        {
+            List<User> usersData = new List<User>
+            {
+                new User
+                {
+                    Id = 1,
+                    FirstName = "Mahdi",
+                    LastName = "Taremi",
+                    Email = "taremiam@gmail.com",
+                    Age = 22,
+                    Website = "www.mahditaremi.ir"
+                },
+            };
+            return usersData;
+        }
+        #endregion
+
 
     }
 }
