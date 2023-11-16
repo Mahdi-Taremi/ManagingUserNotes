@@ -8,15 +8,32 @@ using System.Threading.Tasks;
 using ManagingUserNotes.API.Controllers;
 using ManagingUserNotes.API.Entities;
 using ManagingUserNotes.API.Repositoties.Interfaces;
+using AutoMapper;
+using ManagingUserNotes.API.Mappings_Profile_;
+using ManagingUserNotes.API.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace ManagingUserNotes.Test.Controller
 {
     public class UserControllerTests
     {
         private readonly Mock<IUserRepository> _userRepository;
+        //private readonly IMapper _mapper;
+        private readonly Mock<IMapper> _mapper;
+
         public UserControllerTests()
         {
             _userRepository = new Mock<IUserRepository>();
+            //if (_mapper == null)
+            //{
+            //    var mappingConfig = new MapperConfiguration(mc =>
+            //    {
+            //        mc.AddProfile(new UserProfile());
+            //    });
+            //    IMapper mapper = mappingConfig.CreateMapper();
+            //    _mapper = mapper;
+            //}
+            _mapper = new Mock<IMapper>();
         }
 
         // Return a json contains all users without notes
@@ -27,16 +44,22 @@ namespace ManagingUserNotes.Test.Controller
         {
             // Arrange
             var userListData = GetUserData();
-            _userRepository.Setup(e => e.GetUsersAsync()).ReturnsAsync(userListData); 
+            _mapper.Setup(m => m.Map<IEnumerable<User>,List<User>>(It.IsAny<IEnumerable<User>>())).Returns(userListData);
+            //_userRepository.Setup(e => e.GetUsersAsync()).ReturnsAsync(userListData); 
             //_userRepository.Setup(e => e.GetUsersAsync()).Returns(userListData);
-            var usersController = new UsersController(_userRepository.Object);
+            //var usersController = new UsersController(_userRepository.Object);
+            var usersController = new UsersController(_userRepository.Object, _mapper.Object);
 
             // Act 
             var usersResult = await usersController.GetUsers();
-            //var usersResult = usersController.GetUsers();
+            var testType = usersResult.GetType().ToString();
 
             // Assert 
             Assert.NotNull(usersResult);
+            //Assert.Equal(StatusCodes.Status200OK, usersResult.ContentType);
+            //Assert.Equal(testType,"application/json");
+
+
 
         }
 
