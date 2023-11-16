@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ManagingUserNotes.API\ManagingUserNotes.API.csproj" />
+  </ItemGroup>
+
 </Project>

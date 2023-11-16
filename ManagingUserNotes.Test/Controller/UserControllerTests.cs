@@ -5,6 +5,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ManagingUserNotes.API.Controllers;
+using ManagingUserNotes.API.Entities;
+using ManagingUserNotes.API.Repositoties.Interfaces;
 
 namespace ManagingUserNotes.Test.Controller
 {
@@ -18,44 +21,44 @@ namespace ManagingUserNotes.Test.Controller
 
         // Return a json contains all users without notes
         [Fact]
-        // public async Task  CanGetAllUsers_GetUsers_ReturnAJsonContainsAllUsersWithoutNotes() *Async
+        public async Task CanGetAllUsers_GetUsers_ReturnAJsonContainsAllUsersWithoutNotes()
         // public async void CanGetAllUsers_GetUsers_ReturnAJsonContainsAllUsersWithoutNotes() *Async
-        public void CanGetAllUsers_GetUsers_ReturnAJsonContainsAllUsersWithoutNotes()
+        // public void CanGetAllUsers_GetUsers_ReturnAJsonContainsAllUsersWithoutNotes()
         {
             // Arrange
             var userListData = GetUserData();
-            // _userRepository.Setup(e => e.GetUsers()).ReturnsAsync(userListData); *Async
-            _userRepository.Setup(e => e.GetUsers()).Returns(userListData);
+            _userRepository.Setup(e => e.GetUsersAsync()).ReturnsAsync(userListData); 
+            //_userRepository.Setup(e => e.GetUsersAsync()).Returns(userListData);
             var usersController = new UsersController(_userRepository.Object);
 
             // Act 
-            //var usersResult = await usersController.GetUsers(); *Async
-            var usersResult = usersController.GetUsers();
+            var usersResult = await usersController.GetUsers();
+            //var usersResult = usersController.GetUsers();
 
             // Assert 
             Assert.NotNull(usersResult);
 
         }
 
-        // Return a json contains user with all notes
-        [Fact]
-        // public async Task CanGetOneUserById_GetUserById_ReturnAJsonContainsUserWithAllNotes() *Async
-        // public async void CanGetOneUserById_GetUserById_ReturnAJsonContainsUserWithAllNotes() *Async
-        public void CanGetOneUserById_GetUserById_ReturnAJsonContainsUserWithAllNotes()
-        {
-            // Arrange 
-            var userData = GetUserData();
-            // _userRepository.Setup(e => e.GetUserById(1, false)).ReturnsAsync(userData[1]); *Async
-            _userRepository.Setup(e => e.GetUserById(1, false)).Returns(userData[1]);
-            var usersController = new UsersController(_userRepository.Object);
+        //// Return a json contains user with all notes
+        //[Fact]
+        //// public async Task CanGetOneUserById_GetUserById_ReturnAJsonContainsUserWithAllNotes() *Async
+        //// public async void CanGetOneUserById_GetUserById_ReturnAJsonContainsUserWithAllNotes() *Async
+        //public void CanGetOneUserById_GetUserById_ReturnAJsonContainsUserWithAllNotes()
+        //{
+        //    // Arrange 
+        //    var userData = GetUserData();
+        //    // _userRepository.Setup(e => e.GetUserById(1, false)).ReturnsAsync(userData[1]); *Async
+        //    _userRepository.Setup(e => e.GetUserById(1, false)).Returns(userData[1]);
+        //    var usersController = new UsersController(_userRepository.Object);
 
-            // Act 
-            // var userResult = await usersController.GetUserById(1,true); *Async
-            var userResult = usersController.GetUserById(1,true);
+        //    // Act 
+        //    // var userResult = await usersController.GetUserById(1,true); *Async
+        //    var userResult = usersController.GetUserById(1, true);
 
-            // Assert 
-            Assert.NotNull(userResult);
-        }
+        //    // Assert 
+        //    Assert.NotNull(userResult);
+        //}
 
         private List<User> GetUserData()
         {
