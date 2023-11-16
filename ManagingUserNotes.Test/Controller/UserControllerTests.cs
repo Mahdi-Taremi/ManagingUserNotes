@@ -43,30 +43,23 @@ namespace ManagingUserNotes.Test.Controller
             Assert.NotNull(usersResult);
             //Assert.Equal(StatusCodes.Status200OK, usersResult.ContentType);
             //Assert.Equal(testType,"application/json");
-
-
-
         }
 
-        //// Return a json contains user with all notes
-        //[Fact]
-        //// public async Task CanGetOneUserById_GetUserById_ReturnAJsonContainsUserWithAllNotes() *Async
-        //// public async void CanGetOneUserById_GetUserById_ReturnAJsonContainsUserWithAllNotes() *Async
-        //public void CanGetOneUserById_GetUserById_ReturnAJsonContainsUserWithAllNotes()
-        //{
-        //    // Arrange 
-        //    var userData = GetUserData();
-        //    // _userRepository.Setup(e => e.GetUserById(1, false)).ReturnsAsync(userData[1]); *Async
-        //    _userRepository.Setup(e => e.GetUserById(1, false)).Returns(userData[1]);
-        //    var usersController = new UsersController(_userRepository.Object);
+        // Return a json contains user with all notes
+        [Fact]
+        public async Task CanGetOneUserById_GetUserById_ReturnAJsonContainsUserWithAllNotes() 
+        {
+            // Arrange 
+            var userData = GetUserData();
+            _mapper.Setup(m => m.Map<IEnumerable<User>, List<User>>(It.IsAny<IEnumerable<User>>())).Returns(userData);
+            var usersController = new UsersController(_userRepository.Object, _mapper.Object);
 
-        //    // Act 
-        //    // var userResult = await usersController.GetUserById(1,true); *Async
-        //    var userResult = usersController.GetUserById(1, true);
+            // Act 
+            var userResult = await usersController.GetUser(1, false);
 
-        //    // Assert 
-        //    Assert.NotNull(userResult);
-        //}
+            // Assert 
+            Assert.NotNull(userResult);
+        }
 
         private List<User> GetUserData()
         {

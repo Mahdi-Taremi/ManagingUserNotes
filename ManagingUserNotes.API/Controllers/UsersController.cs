@@ -28,5 +28,23 @@ namespace ManagingUserNotes.API.Controllers
             var users = await _userRepository.GetUsersAsync();
             return Ok(_mapper.Map<IEnumerable<UserWithoutNotesDto>>(users));
         }
+
+        [HttpGet]
+        [Route("GetUser/{userId}")]
+        public async Task<IActionResult> GetUser(int userId, bool includeNotes = false)
+        {
+            var user = await _userRepository.GetUserByIdAsync(userId, includeNotes);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            if (includeNotes)
+            {
+                return Ok(_mapper.Map<UserDto>(user));
+            }
+            return Ok(_mapper.Map<UserDto>(user));
+        }
+
     }
 }
