@@ -12,9 +12,11 @@ namespace ManagingUserNotes.API.Repositoties.Services
         {
             _DbContextManagingUserNotes = context ?? throw new AggregateException(nameof(context));
         }
-        public async Task<IEnumerable<Note>> GetNotesForUserAsync(int userId)
+        public async Task<IEnumerable<Note?>> GetNotesByUserIdAsync(int UserId)
         {
-            return await _DbContextManagingUserNotes.Notes.Where(e => e.UserId == userId).ToListAsync();
+            return await _DbContextManagingUserNotes.Notes.Where(i => i.UserId == UserId).ToListAsync();
+            //return await _DbContextManagingUserNotes.Notes.Include(i => i.Note).Where(i => i.UserId == userId).ToListAsync();
+
         }
 
         public async Task<Note?> GetNoteByIdAsync(int id)

@@ -4,16 +4,14 @@ using ManagingUserNotes.API.Models;
 
 namespace ManagingUserNotes.API.Mappings_Profile_
 {
-    public class UserProfile : Profile
+    public class NoteProfile : Profile
     {
-        public UserProfile()
+        public NoteProfile()
         {
-            CreateMap<Entities.User, Models.UserDto>();
-            CreateMap<Entities.User, Models.UserWithoutNotesDto>();
-            CreateMap<List<User>, NoteDto>();
+            CreateMap<Entities.Note, Models.NoteDto>();
+            CreateMap<Entities.Note, Models.NoteWithoutRelationDto>();
             CreateMap<UserDto, NoteDto>();
             CreateMap<NoteDto, UserDto>();
-
         }
-    }
+}
 }

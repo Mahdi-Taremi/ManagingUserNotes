@@ -33,7 +33,7 @@ namespace ManagingUserNotes.Test.Controller
             var notesController = new NotesController(_noteRepository.Object, _mapper.Object);
 
             // Act 
-            var noteResult = await notesController.GetNotesByUserId(1);
+            var noteResult = await notesController.GetNotesByUserId(2);
 
 
             // Assert 

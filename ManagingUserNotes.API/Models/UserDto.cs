@@ -10,7 +10,7 @@
         public string? Website { get; set; }
 
         // Relation with note --> N
-         public ICollection<NoteDto> Note { get; set; } = new List<NoteDto>();
+         public ICollection<NoteWithoutRelationDto> Note { get; set; } = new List<NoteWithoutRelationDto>();
 
     }
 }
