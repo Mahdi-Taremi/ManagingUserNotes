@@ -1,4 +1,5 @@
 using ManagingUserNotes.API.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +14,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add Access to Database 
-builder.Services.AddDbContext<DbContextManagingUserNotes>();
-
+builder.Services.AddDbContext<DbContextManagingUserNotes>(options =>
+{
+    var ConnectionStrings = builder.Configuration.GetConnectionString("ManagingUserNotesConnectionString");
+    options.UseSqlite(ConnectionStrings);
+});
 #endregion
 
 var app = builder.Build();
