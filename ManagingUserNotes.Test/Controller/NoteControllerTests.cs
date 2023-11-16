@@ -28,32 +28,36 @@ namespace ManagingUserNotes.Test.Controller
         public async Task CanGetNotesFromAUser_GetNotesByUserId_ReturnAJsonContainsAllNotesForAUser()
         {
             // Arrange 
-            var noteData = GetNoteData();
+            var notesData = GetNoteData();
             //_mapper.Setup(m => m.Map<IEnumerable<Note>, List<Note>>(It.IsAny<IEnumerable<Note>>())).Returns(noteData);
             //var notesController = new NotesController(_noteRepository.Object, _mapper.Object);
 
-            _noteRepository.Setup(e => e.GetNotesByUserIdAsync(1)).ReturnsAsync(noteData);
+            _noteRepository.Setup(e => e.GetNotesByUserIdAsync(1)).ReturnsAsync(notesData);
             var notesController = new NotesController(_noteRepository.Object);
 
             // Act 
-            var noteResult = await notesController.GetNotesByUserId(1);
-
+            var notesResult = await notesController.GetNotesByUserId(1);
 
             // Assert 
-            Assert.NotNull(noteResult);
+            Assert.NotNull(notesResult);
 
 
         }
 
         // Return a json contains note
         [Fact]
-        public void CanGetNoteWithId_GetNoteById_ReturnAJsonContainsNote()
+        public async Task CanGetNoteWithId_GetNoteById_ReturnAJsonContainsNote()
         {
             // Arrange 
+            var notesData = GetNoteData();
+            _noteRepository.Setup(e => e.GetNoteByIdAsync(1)).ReturnsAsync(notesData);
+            var notesController = new NotesController(_noteRepository.Object);
 
             // Act 
+            var noteResult = await notesController.GetNoteById(1);
 
             // Assert 
+            Assert.NotNull(noteResult);
 
         }
 
