@@ -24,6 +24,7 @@ builder.Services.AddDbContext<DbContextManagingUserNotes>(options =>
 
 // Add Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<INoteRepository, NoteRepository>();
 
 // Add AddAutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
