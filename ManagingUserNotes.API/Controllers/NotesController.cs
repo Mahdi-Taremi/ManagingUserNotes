@@ -22,6 +22,7 @@ namespace ManagingUserNotes.API.Controllers
             //_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        #region GetNotesByUserId
         [HttpGet]
         [Route("GetNotesByUserId/{userId}")]
         public async Task<IActionResult> GetNotesByUserId(int userId)
@@ -34,7 +35,9 @@ namespace ManagingUserNotes.API.Controllers
             return Ok(notes);
             //return Ok(_mapper.Map<NoteDto>(notes));
         }
+        #endregion
 
+        #region GetNoteById
         [HttpGet]
         [Route("GetNoteById/{id}")]
         public async Task<IActionResult> GetNoteById(int id)
@@ -46,5 +49,7 @@ namespace ManagingUserNotes.API.Controllers
             }
             return Ok(note);
         }
+        #endregion
+
     }
 }

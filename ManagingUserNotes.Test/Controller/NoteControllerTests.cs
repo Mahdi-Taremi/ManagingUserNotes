@@ -24,6 +24,7 @@ namespace ManagingUserNotes.Test.Controller
         }
 
         // Return a json contains all notes for a user
+        #region GetNotesByUserId
         [Fact]
         public async Task CanGetNotesFromAUser_GetNotesByUserId_ReturnAJsonContainsAllNotesForAUser()
         {
@@ -40,11 +41,12 @@ namespace ManagingUserNotes.Test.Controller
 
             // Assert 
             Assert.NotNull(notesResult);
-
-
         }
+        #endregion
+
 
         // Return a json contains note
+        #region GetNoteById
         [Fact]
         public async Task CanGetNoteWithId_GetNoteById_ReturnAJsonContainsNote()
         {
@@ -58,9 +60,11 @@ namespace ManagingUserNotes.Test.Controller
 
             // Assert 
             Assert.NotNull(noteResult);
-
         }
+        #endregion
 
+
+        #region GetNoteData(Fake)
         private List<Note> GetNoteData()
         {
             List<Note> notesData = new List<Note>
@@ -108,6 +112,8 @@ namespace ManagingUserNotes.Test.Controller
         };
             return notesData;
         }
+        #endregion
+
 
     }
 }

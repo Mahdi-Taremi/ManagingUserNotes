@@ -21,6 +21,7 @@ namespace ManagingUserNotes.API.Controllers
 
         }
 
+        #region GetUsers
         [HttpGet]
         [Route("GetUsers")]
         public async Task<ActionResult<IEnumerable<UserWithoutNotesDto>>> GetUsers()
@@ -28,7 +29,9 @@ namespace ManagingUserNotes.API.Controllers
             var users = await _userRepository.GetUsersAsync();
             return Ok(_mapper.Map<IEnumerable<UserWithoutNotesDto>>(users));
         }
+        #endregion
 
+        #region GetUser
         [HttpGet]
         [Route("GetUser/{userId}")]
         public async Task<IActionResult> GetUser(int userId, bool includeNotes = false)
@@ -45,6 +48,8 @@ namespace ManagingUserNotes.API.Controllers
             }
             return Ok(_mapper.Map<UserDto>(user));
         }
+        #endregion
+
 
     }
 }

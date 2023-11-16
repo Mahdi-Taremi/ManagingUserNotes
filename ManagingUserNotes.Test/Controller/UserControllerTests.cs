@@ -27,12 +27,13 @@ namespace ManagingUserNotes.Test.Controller
         }
 
         // Return a json contains all users without notes
+        #region GetUsers
         [Fact]
         public async Task CanGetAllUsers_GetUsers_ReturnAJsonContainsAllUsersWithoutNotes()
         {
             // Arrange
             var userListData = GetUserData();
-            _mapper.Setup(m => m.Map<IEnumerable<User>,List<User>>(It.IsAny<IEnumerable<User>>())).Returns(userListData);
+            _mapper.Setup(m => m.Map<IEnumerable<User>, List<User>>(It.IsAny<IEnumerable<User>>())).Returns(userListData);
             var usersController = new UsersController(_userRepository.Object, _mapper.Object);
 
             // Act 
@@ -44,10 +45,13 @@ namespace ManagingUserNotes.Test.Controller
             //Assert.Equal(StatusCodes.Status200OK, usersResult.ContentType);
             //Assert.Equal(testType,"application/json");
         }
+        #endregion
+
 
         // Return a json contains user with all notes
+        #region GetUser
         [Fact]
-        public async Task CanGetOneUserById_GetUserById_ReturnAJsonContainsUserWithAllNotes() 
+        public async Task CanGetOneUserById_GetUserById_ReturnAJsonContainsUserWithAllNotes()
         {
             // Arrange 
             var userData = GetUserData();
@@ -60,7 +64,10 @@ namespace ManagingUserNotes.Test.Controller
             // Assert 
             Assert.NotNull(userResult);
         }
+        #endregion
 
+
+        #region GetUserData(Fake)
         private List<User> GetUserData()
         {
             List<User> usersData = new List<User>
@@ -96,5 +103,7 @@ namespace ManagingUserNotes.Test.Controller
             };
             return usersData;
         }
+        #endregion
+
     }
 }
