@@ -1,4 +1,6 @@
 using ManagingUserNotes.API.DataAccess;
+using ManagingUserNotes.API.Repositoties.Interfaces;
+using ManagingUserNotes.API.Repositoties.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,10 @@ builder.Services.AddDbContext<DbContextManagingUserNotes>(options =>
     var ConnectionStrings = builder.Configuration.GetConnectionString("ManagingUserNotesConnectionString");
     options.UseSqlite(ConnectionStrings);
 });
+
+// Add Repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 #endregion
 
 var app = builder.Build();
