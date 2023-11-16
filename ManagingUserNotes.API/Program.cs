@@ -1,12 +1,20 @@
+using ManagingUserNotes.API.DataAccess;
+
 var builder = WebApplication.CreateBuilder(args);
 
 /*  *** Add services to the container. *** */
 #region services
+
 // use Controllers
 builder.Services.AddControllers();
+
 // 1.(Swagger) First stage for add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add Access to Database 
+builder.Services.AddDbContext<DbContextManagingUserNotes>();
+
 #endregion
 
 var app = builder.Build();
@@ -26,6 +34,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
+
 #endregion
 
 
