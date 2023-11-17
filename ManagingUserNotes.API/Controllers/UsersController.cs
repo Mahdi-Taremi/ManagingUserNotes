@@ -57,7 +57,7 @@ namespace ManagingUserNotes.API.Controllers
         [Route("DeleteUserById/{userId}")]
         public async Task<ActionResult> DeleteUserById(int userId)
         {
-            var result = await _userRepository.GetUserByIdAsync(userId,false);
+            var result = await _userRepository.GetUserByIdAsync(userId, false);
 
             if (result != null)
             {
