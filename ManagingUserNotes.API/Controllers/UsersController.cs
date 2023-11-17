@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ManagingUserNotes.API.Entities;
+using ManagingUserNotes.API.Migrations;
 using ManagingUserNotes.API.Models;
 using ManagingUserNotes.API.Repositoties.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -64,6 +66,28 @@ namespace ManagingUserNotes.API.Controllers
             }
             return NotFound();
 
+        }
+        #endregion
+
+        #region CreateUser
+        [HttpPost]
+        [Route("CreateUser")]
+
+        public async Task<ActionResult> CreateUser(UserWithDataAnnotationAndWithoutNoteDto user)
+        {
+            bool isEmailUnique = await _userRepository.IsEmailUnique(user.Email);
+            if (!isEmailUnique)
+            {
+                return BadRequest("Email is pre-existing.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var userResult = _mapper.Map<User>(user);
+            var createdUser = await _userRepository.CreateUserAsync(userResult);
+            return Ok(_mapper.Map<UserWithDataAnnotationAndWithoutNoteDto>(createdUser));
         }
         #endregion
 

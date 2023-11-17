@@ -1,5 +1,6 @@
 ﻿using ManagingUserNotes.API.DataAccess;
 using ManagingUserNotes.API.Entities;
+using ManagingUserNotes.API.Models;
 using ManagingUserNotes.API.Repositoties.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,16 @@ namespace ManagingUserNotes.API.Repositoties.Services
                 _DbContextManagingUserNotes.Users.Remove(entity);
                 await _DbContextManagingUserNotes.SaveChangesAsync();
             }
+        }
+        public async Task<bool> IsEmailUnique(string email)
+        {
+            return await _DbContextManagingUserNotes.Users.AllAsync(e => e.Email != email);
+        }
+        public async Task<User> CreateUserAsync(User user)
+        {
+            _DbContextManagingUserNotes.Users.Add(user);
+            await _DbContextManagingUserNotes.SaveChangesAsync();
+            return user;
         }
     }
 }
