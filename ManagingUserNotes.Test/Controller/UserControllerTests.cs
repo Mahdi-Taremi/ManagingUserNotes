@@ -12,6 +12,7 @@ using AutoMapper;
 using ManagingUserNotes.API.Mappings_Profile_;
 using ManagingUserNotes.API.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ManagingUserNotes.Test.Controller
 {
@@ -47,7 +48,6 @@ namespace ManagingUserNotes.Test.Controller
         }
         #endregion
 
-
         // Return a json contains user with all notes
         #region GetUser
         [Fact]
@@ -69,18 +69,21 @@ namespace ManagingUserNotes.Test.Controller
         // Delete User With All Notes
         #region DeleteUser
         [Fact]
-        public async Task CanDeleteOneUserById_DeleteUserById_DeleteUserWithAllNotes()
+        public async Task DeleteUserById_ReturnsOkResult_WhenUserExists()
         {
-            // Arrange 
+            // Arrange
             var userData = GetUserDataForDelete();
+
             _mapper.Setup(m => m.Map<IEnumerable<User>, List<User>>(It.IsAny<IEnumerable<User>>())).Returns(userData);
             var usersController = new UsersController(_userRepository.Object, _mapper.Object);
 
-            // Act 
-            var userResult = await usersController.DeleteUserById(1);
+            // Act
+            var result = await usersController.DeleteUserById(1);
 
-            // Assert 
-            Assert.Null(userResult);
+            // Assert
+            //var okResult = Assert.IsType<OkObjectResult>(result);
+            //var returnUser = Assert.IsType<User>(okResult.Value);
+            Assert.NotNull(result);
         }
         #endregion
 
@@ -137,6 +140,15 @@ namespace ManagingUserNotes.Test.Controller
                     Age = 22,
                     Website = "www.mahditaremi.ir"
                 },
+                //new User
+                //{
+                //    Id = 2,
+                //    FirstName = "Ali",
+                //    LastName = "Taremi",
+                //    Email = "Test2@gmail.com",
+                //    Age = 32,
+                //    Website = "www.mahditaremi.ir"
+                //},
             };
             return usersData;
         }

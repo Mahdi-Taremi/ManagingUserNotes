@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ManagingUserNotes.API.Controllers;
 using ManagingUserNotes.API.Entities;
+using ManagingUserNotes.API.Models;
 using ManagingUserNotes.API.Repositoties.Interfaces;
 using ManagingUserNotes.API.Repositoties.Services;
 using Moq;
@@ -50,15 +51,16 @@ namespace ManagingUserNotes.Test.Controller
         [Fact]
         public async Task CanGetNoteWithId_GetNoteById_ReturnAJsonContainsNote()
         {
-            // Arrange 
+            // Arrange
             var notesData = GetNoteData();
-            _noteRepository.Setup(e => e.GetNoteByIdAsync(1)).ReturnsAsync(notesData);
+            _mapper.Setup(m => m.Map<IEnumerable<Note>, List<Note>>(It.IsAny<IEnumerable<Note>>())).Returns(notesData);
             var notesController = new NotesController(_noteRepository.Object);
 
-            // Act 
+            // Act
             var noteResult = await notesController.GetNoteById(1);
 
-            // Assert 
+
+            // Assert
             Assert.NotNull(noteResult);
         }
         #endregion

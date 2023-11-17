@@ -50,6 +50,22 @@ namespace ManagingUserNotes.API.Controllers
         }
         #endregion
 
+        #region DeleteUserById
+        [HttpDelete]
+        [Route("DeleteUserById/{userId}")]
+        public async Task<ActionResult> DeleteUserById(int userId)
+        {
+            var result = await _userRepository.GetUserByIdAsync(userId,false);
+
+            if (result != null)
+            {
+                await _userRepository.DeleteUserByIdAsync(userId);
+                return Ok("The user was deleted with her notes.");
+            }
+            return NotFound();
+
+        }
+        #endregion
 
     }
 }

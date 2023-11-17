@@ -7,5 +7,7 @@ namespace ManagingUserNotes.API.Repositoties.Interfaces
         Task<IEnumerable<User>> GetUsersAsync();
 
         Task<User?> GetUserByIdAsync(int userId, bool includeNotes);
+
+        Task DeleteUserByIdAsync(int userId);
     }
 }

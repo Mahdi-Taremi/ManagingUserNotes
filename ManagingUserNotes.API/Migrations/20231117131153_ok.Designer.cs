@@ -3,6 +3,7 @@ using System;
 using ManagingUserNotes.API.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ManagingUserNotes.API.Migrations
 {
     [DbContext(typeof(DbContextManagingUserNotes))]
-    partial class DbContextManagingUserNotesModelSnapshot : ModelSnapshot
+    [Migration("20231117131153_ok")]
+    partial class ok
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.25");
@@ -55,8 +57,8 @@ namespace ManagingUserNotes.API.Migrations
                         {
                             Id = 1,
                             Content = "This is First Note",
-                            DateCreated = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1722),
-                            DateModified = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1722),
+                            DateCreated = new DateTime(2023, 11, 17, 16, 41, 53, 657, DateTimeKind.Local).AddTicks(5356),
+                            DateModified = new DateTime(2023, 11, 17, 16, 41, 53, 657, DateTimeKind.Local).AddTicks(5356),
                             Published = true,
                             UserId = 1,
                             Views = 0
@@ -65,8 +67,8 @@ namespace ManagingUserNotes.API.Migrations
                         {
                             Id = 2,
                             Content = "This is Second Note",
-                            DateCreated = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1724),
-                            DateModified = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1725),
+                            DateCreated = new DateTime(2023, 11, 17, 16, 41, 53, 657, DateTimeKind.Local).AddTicks(5359),
+                            DateModified = new DateTime(2023, 11, 17, 16, 41, 53, 657, DateTimeKind.Local).AddTicks(5359),
                             Published = true,
                             UserId = 2,
                             Views = 0
@@ -75,8 +77,8 @@ namespace ManagingUserNotes.API.Migrations
                         {
                             Id = 3,
                             Content = "This is Third Note",
-                            DateCreated = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1726),
-                            DateModified = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1726),
+                            DateCreated = new DateTime(2023, 11, 17, 16, 41, 53, 657, DateTimeKind.Local).AddTicks(5361),
+                            DateModified = new DateTime(2023, 11, 17, 16, 41, 53, 657, DateTimeKind.Local).AddTicks(5362),
                             Published = true,
                             UserId = 1,
                             Views = 0
@@ -85,40 +87,10 @@ namespace ManagingUserNotes.API.Migrations
                         {
                             Id = 4,
                             Content = "Test",
-                            DateCreated = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1728),
-                            DateModified = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1728),
+                            DateCreated = new DateTime(2023, 11, 17, 16, 41, 53, 657, DateTimeKind.Local).AddTicks(5364),
+                            DateModified = new DateTime(2023, 11, 17, 16, 41, 53, 657, DateTimeKind.Local).AddTicks(5365),
                             Published = true,
                             UserId = 1,
-                            Views = 0
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Content = "Test new",
-                            DateCreated = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1729),
-                            DateModified = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1730),
-                            Published = true,
-                            UserId = 5,
-                            Views = 0
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Content = "Test new",
-                            DateCreated = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1731),
-                            DateModified = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1731),
-                            Published = true,
-                            UserId = 5,
-                            Views = 0
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Content = "Test new 4",
-                            DateCreated = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1732),
-                            DateModified = new DateTime(2023, 11, 17, 16, 45, 52, 801, DateTimeKind.Local).AddTicks(1733),
-                            Published = true,
-                            UserId = 4,
                             Views = 0
                         });
                 });
@@ -178,24 +150,6 @@ namespace ManagingUserNotes.API.Migrations
                             Age = 32,
                             Email = "Test2@gmail.com",
                             FirstName = "Amir",
-                            LastName = "Taremi",
-                            Website = "www.Test.ir"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Age = 42,
-                            Email = "Test3@gmail.com",
-                            FirstName = "hasan",
-                            LastName = "Taremi",
-                            Website = "www.Test.ir"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Age = 52,
-                            Email = "Test4@gmail.com",
-                            FirstName = "hossein",
                             LastName = "Taremi",
                             Website = "www.Test.ir"
                         });

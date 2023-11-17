@@ -28,7 +28,7 @@ namespace ManagingUserNotes.API.Controllers
         public async Task<IActionResult> GetNotesByUserId(int userId)
         {
             var notes = await _noteRepository.GetNotesByUserIdAsync(userId);
-            if (notes == null)
+            if (notes.Count() == 0)
             {
                 return NotFound();
             }

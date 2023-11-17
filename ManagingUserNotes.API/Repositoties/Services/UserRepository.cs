@@ -1,6 +1,7 @@
 ﻿using ManagingUserNotes.API.DataAccess;
 using ManagingUserNotes.API.Entities;
 using ManagingUserNotes.API.Repositoties.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ManagingUserNotes.API.Repositoties.Services
@@ -26,6 +27,17 @@ namespace ManagingUserNotes.API.Repositoties.Services
             }
 
             return await _DbContextManagingUserNotes.Users.Where(e => e.Id == userId).FirstOrDefaultAsync();
+        }
+
+        public async Task DeleteUserByIdAsync(int userId)
+        {
+            var entity = await _DbContextManagingUserNotes.Users.FirstOrDefaultAsync(e => e.Id == userId);
+
+            if (entity != null)
+            {
+                _DbContextManagingUserNotes.Users.Remove(entity);
+                await _DbContextManagingUserNotes.SaveChangesAsync();
+            }
         }
     }
 }
