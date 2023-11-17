@@ -65,6 +65,24 @@ namespace ManagingUserNotes.Test.Controller
         }
         #endregion
 
+        // Delete Note With Note By Id
+        #region DeleteNoteById
+        [Fact]
+        public async Task CanDeleteNoteById_DeleteNoteById_DeleteNoteWithNoteId()
+        {
+            // Arrange
+            var userData = GetNoteDataForDelete();
+
+            _mapper.Setup(m => m.Map<IEnumerable<Note>, List<Note>>(It.IsAny<IEnumerable<Note>>())).Returns(userData);
+            var notesController = new NotesController(_noteRepository.Object);
+
+            // Act
+            var result = await notesController.DeleteNoteById(1);
+
+            // Assert
+            Assert.NotNull(result);
+        }
+        #endregion
 
         #region GetNoteData(Fake)
         private List<Note> GetNoteData()
@@ -116,6 +134,25 @@ namespace ManagingUserNotes.Test.Controller
         }
         #endregion
 
+        #region GetNoteDataForDelete(Fake)
+        private List<Note> GetNoteDataForDelete()
+        {
+            List<Note> notesData = new List<Note>
+            {
+                new Note
+                {
+                    Id = 1,
+                    Content ="This is First Note",
+                    DateCreated= DateTime.Now,
+                    DateModified = DateTime.Now,
+                    Views= 0,
+                    Published = true,
+                    UserId = 1
+                },
+            };
+            return notesData;
+        }
+        #endregion
 
     }
 }
