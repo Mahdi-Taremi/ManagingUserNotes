@@ -15,13 +15,23 @@ namespace ManagingUserNotes.API.Repositoties.Services
         public async Task<IEnumerable<Note?>> GetNotesByUserIdAsync(int UserId)
         {
             return await _DbContextManagingUserNotes.Notes.Where(i => i.UserId == UserId).ToListAsync();
-            //return await _DbContextManagingUserNotes.Notes.Include(i => i.Note).Where(i => i.UserId == userId).ToListAsync();
 
         }
 
         public async Task<Note?> GetNoteByIdAsync(int id)
         {
             return await _DbContextManagingUserNotes.Notes.Where(e => e.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task DeleteNoteByIdAsync(int noteId)
+        {
+            var entity = await _DbContextManagingUserNotes.Notes.FirstOrDefaultAsync(e => e.Id == noteId);
+
+            if (entity != null)
+            {
+                _DbContextManagingUserNotes.Notes.Remove(entity);
+                await _DbContextManagingUserNotes.SaveChangesAsync();
+            }
         }
     }
 }

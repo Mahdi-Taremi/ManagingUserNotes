@@ -71,9 +71,9 @@ namespace ManagingUserNotes.Test.Controller
         public async Task CanDeleteNoteById_DeleteNoteById_DeleteNoteWithNoteId()
         {
             // Arrange
-            var userData = GetNoteDataForDelete();
+            var notesData = GetNoteDataForDelete();
 
-            _mapper.Setup(m => m.Map<IEnumerable<Note>, List<Note>>(It.IsAny<IEnumerable<Note>>())).Returns(userData);
+            _mapper.Setup(m => m.Map<IEnumerable<Note>, List<Note>>(It.IsAny<IEnumerable<Note>>())).Returns(notesData);
             var notesController = new NotesController(_noteRepository.Object);
 
             // Act
