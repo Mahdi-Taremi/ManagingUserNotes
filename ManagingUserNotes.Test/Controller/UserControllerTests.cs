@@ -13,6 +13,7 @@ using ManagingUserNotes.API.Mappings_Profile_;
 using ManagingUserNotes.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ManagingUserNotes.API.Repositoties.Services;
 
 namespace ManagingUserNotes.Test.Controller
 {
@@ -88,50 +89,23 @@ namespace ManagingUserNotes.Test.Controller
         #endregion
 
         #region CreateUser
-        //[Fact]
-        //public void CreateUser_Test()
-        //{
-        //    // Arrange
-        //    var usersController = new UsersController(_userRepository.Object, _mapper.Object);
-        //    var userDto = new UserDto
-        //    {
-        //        Id = 9,
-        //        FirstName = "Farhad",
-        //        LastName = "Taremi",
-        //        Email = "Farhad@example.com",
-        //        Age = 25,
-        //        Website = "https://example.com"
-        //    };
-        //    var expectedUser = new User
-        //    {
-        //        Id = userDto.Id,
-        //        FirstName = userDto.FirstName,
-        //        LastName = userDto.LastName,
-        //        Email = userDto.Email,
-        //        Age = userDto.Age,
-        //        Website = userDto.Website
-        //    };
-        //_userRepository.Setup(r => r.GetUserByEmail(userDto.Email)).Returns((User)null);
-        //_mapper.Setup(m => m.Map<User>(userDto)).Returns(expectedUser);
+        [Fact]
+        public async Task  CreateUserTest()
+        {
+            // Arrange
+            var user =   new UserWithDataAnnotationAndWithoutNoteDto {Id = 1, FirstName = "testuser", LastName = "testlastname", Age = 25, Email = "testuser@test.com" , Website = "www.google.com"};
 
-        // Act
-        //var result = usersController.CreateUser(userDto);
+            // Act
+            var usersController = new   UsersController(_userRepository.Object, _mapper.Object);
+            var result =  usersController.CreateUser(user);
 
-        // Assert
-        //_userRepository.Verify(r => r.GetUserByEmail(userDto.Email), Times.Once);
-        //_userRepository.Verify(r => r.CreateUser(expectedUser), Times.Once);
-        //_mapper.Verify(m => m.Map<User>(userDto), Times.Once);
-
-        //Assert.Equal(expectedUser.Id, result.Id);
-        //Assert.Equal(userDto.Age, result.Age);
-        //Assert.Equal(userDto.Email, result.Email);
-        //Assert.Equal(userDto.FirstName, result.FirstName);
-        //Assert.Equal(userDto.LastName, result.LastName);
-        //Assert.Equal(userDto.Website, result.Website);
-        //}
+            // Assert
+            Assert.True(result.Id == user.Id );
+            Assert.Equal(result.Id, user.Id);
+            //Assert.Equal(StatusCodes.Status200OK, result.AsyncState);
+            Assert.NotNull(result);
+        }
         #endregion
-
-
 
         #region GetUserData(Fake)
         private List<User> GetUserData()
