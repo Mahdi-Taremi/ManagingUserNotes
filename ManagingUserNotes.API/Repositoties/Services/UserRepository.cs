@@ -20,14 +20,13 @@ namespace ManagingUserNotes.API.Repositoties.Services
             return await _DbContextManagingUserNotes.Users.ToListAsync();
         }
 
-        public async Task<User?> GetUserByIdAsync(int userId, bool includeNotes)
+        public async Task<User?> GetUserByIdAsync(int userId)
         {
-            if (includeNotes)
-            {
-                return await _DbContextManagingUserNotes.Users.Include(i => i.Note).Where(i => i.Id == userId).FirstOrDefaultAsync();
-            }
-
             return await _DbContextManagingUserNotes.Users.Where(e => e.Id == userId).FirstOrDefaultAsync();
+        }
+        public async Task<User?> GetUserByIdIncludeNotesAsync(int userId)
+        {
+            return await _DbContextManagingUserNotes.Users.Include(i => i.Note).Where(i => i.Id == userId).FirstOrDefaultAsync();
         }
 
         public async Task DeleteUserByIdAsync(int userId)

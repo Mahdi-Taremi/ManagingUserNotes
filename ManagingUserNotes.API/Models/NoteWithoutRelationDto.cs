@@ -1,4 +1,6 @@
-﻿namespace ManagingUserNotes.API.Models
+﻿using ManagingUserNotes.API.Entities;
+
+namespace ManagingUserNotes.API.Models
 {
     public class NoteWithoutRelationDto
     {
@@ -8,5 +10,8 @@
         public DateTime? DateModified { get; set; } = DateTime.Now;
         public int Views { get; set; }
         public bool Published { get; set; }
+        public int UserId { get; set; }
+
+
     }
 }

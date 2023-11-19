@@ -6,12 +6,7 @@ namespace ManagingUserNotes.API.Models
 {
     public class UserWithDataAnnotationAndWithoutNoteDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } 
-        [Required]
-        [StringLength(128)]
-        public string FirstName { get; set; } = string.Empty;
+        [Required] [StringLength(128)] public string FirstName { get; set; } = "";
         [StringLength(128)]
         public string LastName { get; set; } = string.Empty;
 

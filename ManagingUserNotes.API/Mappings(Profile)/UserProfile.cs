@@ -13,7 +13,6 @@ namespace ManagingUserNotes.API.Mappings_Profile_
             CreateMap<UserWithoutNotesDto, User>();
             CreateMap<UserWithDataAnnotationAndWithoutNoteDto, User>();
             CreateMap<User, UserWithDataAnnotationAndWithoutNoteDto>();
-
         }
     }
 }

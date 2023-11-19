@@ -18,11 +18,16 @@ namespace ManagingUserNotes.Test.Controller
     {
         private readonly Mock<INoteRepository> _noteRepository;
         private readonly Mock<IMapper> _mapper;
+        private readonly Mock<IUserRepository> _userRepository;
+
         public NoteControllerTests()
         {
             _noteRepository = new Mock<INoteRepository>();
             _mapper = new Mock<IMapper>();
+            _userRepository = new Mock<IUserRepository>();
         }
+
+
 
         // Return a json contains all notes for a user
         #region GetNotesByUserId
@@ -35,7 +40,7 @@ namespace ManagingUserNotes.Test.Controller
             //var notesController = new NotesController(_noteRepository.Object, _mapper.Object);
 
             _noteRepository.Setup(e => e.GetNotesByUserIdAsync(1)).ReturnsAsync(notesData);
-            var notesController = new NotesController(_noteRepository.Object);
+            var notesController = new NotesController(_noteRepository.Object, _mapper.Object, _userRepository.Object);
 
             // Act 
             var notesResult = await notesController.GetNotesByUserId(1);
@@ -45,7 +50,6 @@ namespace ManagingUserNotes.Test.Controller
         }
         #endregion
 
-
         // Return a json contains note
         #region GetNoteById
         [Fact]
@@ -53,8 +57,11 @@ namespace ManagingUserNotes.Test.Controller
         {
             // Arrange
             var notesData = GetNoteData();
-            _mapper.Setup(m => m.Map<IEnumerable<Note>, List<Note>>(It.IsAny<IEnumerable<Note>>())).Returns(notesData);
-            var notesController = new NotesController(_noteRepository.Object);
+            //_mapper.Setup(m => m.Map<IEnumerable<Note>, List<Note>>(It.IsAny<IEnumerable<Note>>())).Returns(notesData);
+            //_noteRepository.Setup(e => e.GetNotesByUserIdAsync(1)).ReturnsAsync(notesData);
+
+            var notesController = new NotesController(_noteRepository.Object, _mapper.Object, _userRepository.Object);
+
 
             // Act
             var noteResult = await notesController.GetNoteById(1);
@@ -73,8 +80,10 @@ namespace ManagingUserNotes.Test.Controller
             // Arrange
             var notesData = GetNoteDataForDelete();
 
-            _mapper.Setup(m => m.Map<IEnumerable<Note>, List<Note>>(It.IsAny<IEnumerable<Note>>())).Returns(notesData);
-            var notesController = new NotesController(_noteRepository.Object);
+            //_mapper.Setup(m => m.Map<IEnumerable<Note>, List<Note>>(It.IsAny<IEnumerable<Note>>())).Returns(notesData);
+            //var notesController = new NotesController(_noteRepository.Object);
+            var notesController = new NotesController(_noteRepository.Object, _mapper.Object, _userRepository.Object);
+
 
             // Act
             var result = await notesController.DeleteNoteById(1);

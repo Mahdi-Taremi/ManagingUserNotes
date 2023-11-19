@@ -10,7 +10,7 @@ namespace ManagingUserNotes.API.Entities
         public int Id { get; set; }
         [Required]
         [StringLength(128)]
-        public string FirstName { get; set; } = string.Empty;
+        public string FirstName { get; set; } = "";
         [StringLength(128)]
         public string LastName { get; set; } = string.Empty;
         [Required(ErrorMessage = "The Email field is required.")]

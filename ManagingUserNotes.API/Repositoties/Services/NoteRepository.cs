@@ -33,5 +33,12 @@ namespace ManagingUserNotes.API.Repositoties.Services
                 await _DbContextManagingUserNotes.SaveChangesAsync();
             }
         }
+
+        public async Task<Note> CreateNoteAsync(Note note)
+        {
+            _DbContextManagingUserNotes.Notes.Add(note);
+            await _DbContextManagingUserNotes.SaveChangesAsync();
+            return note;
+        }
     }
 }

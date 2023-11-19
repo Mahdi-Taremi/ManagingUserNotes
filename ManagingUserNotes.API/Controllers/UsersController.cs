@@ -36,17 +36,26 @@ namespace ManagingUserNotes.API.Controllers
         #region GetUser
         [HttpGet]
         [Route("GetUser/{userId}")]
-        public async Task<IActionResult> GetUser(int userId, bool includeNotes = false)
+        public async Task<IActionResult> GetUser(int userId)
         {
-            var user = await _userRepository.GetUserByIdAsync(userId, includeNotes);
+            var user = await _userRepository.GetUserByIdAsync(userId);
             if (user == null)
             {
                 return NotFound();
             }
+            return Ok(_mapper.Map<UserWithoutNotesDto>(user));
+        }
+        #endregion
 
-            if (includeNotes)
+        #region GetUserIncludeNotes
+        [HttpGet]
+        [Route("GetUserIncludeNotes/{userId}")]
+        public async Task<IActionResult> GetUserIncludeNotes(int userId)
+        {
+            var user = await _userRepository.GetUserByIdIncludeNotesAsync(userId);
+            if (user == null)
             {
-                return Ok(_mapper.Map<UserDto>(user));
+                return NotFound();
             }
             return Ok(_mapper.Map<UserDto>(user));
         }
@@ -57,7 +66,7 @@ namespace ManagingUserNotes.API.Controllers
         [Route("DeleteUserById/{userId}")]
         public async Task<ActionResult> DeleteUserById(int userId)
         {
-            var result = await _userRepository.GetUserByIdAsync(userId, false);
+            var result = await _userRepository.GetUserByIdAsync(userId);
 
             if (result != null)
             {
@@ -72,7 +81,6 @@ namespace ManagingUserNotes.API.Controllers
         #region CreateUser
         [HttpPost]
         [Route("CreateUser")]
-
         public async Task<ActionResult> CreateUser(UserWithDataAnnotationAndWithoutNoteDto user)
         {
             bool isEmailUnique = await _userRepository.IsEmailUnique(user.Email);
@@ -87,7 +95,7 @@ namespace ManagingUserNotes.API.Controllers
             }
             var userResult = _mapper.Map<User>(user);
             var createdUser = await _userRepository.CreateUserAsync(userResult);
-            return Ok(_mapper.Map<UserWithDataAnnotationAndWithoutNoteDto>(createdUser));
+            return Ok(_mapper.Map<UserWithoutNotesDto>(createdUser));
         }
         #endregion
 

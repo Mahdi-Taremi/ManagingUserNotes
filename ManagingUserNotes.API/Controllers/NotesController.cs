@@ -14,12 +14,13 @@ namespace ManagingUserNotes.API.Controllers
     {
         private readonly INoteRepository _noteRepository;
         private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepository;
 
-        //public NotesController(INoteRepository noteRepository, IMapper mapper)
-        public NotesController(INoteRepository noteRepository)
+        public NotesController(INoteRepository noteRepository, IMapper mapper, IUserRepository userRepository)
         {
             _noteRepository = noteRepository ?? throw new AggregateException(nameof(noteRepository));
-            //_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _userRepository = userRepository ?? throw new ArgumentNullException();
         }
 
         #region GetNotesByUserId
@@ -33,7 +34,6 @@ namespace ManagingUserNotes.API.Controllers
                 return NotFound();
             }
             return Ok(notes);
-            //return Ok(_mapper.Map<NoteDto>(notes));
         }
         #endregion
 
@@ -68,5 +68,25 @@ namespace ManagingUserNotes.API.Controllers
         }
         #endregion
 
+        #region CreateNote
+        [HttpPost]
+        [Route("CreateNote")]
+        public async Task<ActionResult> CreateNote(NoteWithDataAnnotationAndWithoutRelationDto note)
+        {
+            var user = await _userRepository.GetUserByIdAsync(note.UserId);
+            if (user == null)
+            {
+                return NotFound("Check the user ID and Please try again.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var noteResult = _mapper.Map<Note>(note);
+            var createdNote = await _noteRepository.CreateNoteAsync(noteResult);
+            return Ok("Done successfully. ID of the created note : " + createdNote.Id);
+        }
+        #endregion
     }
 }
