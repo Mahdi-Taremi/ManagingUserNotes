@@ -5,6 +5,7 @@ using ManagingUserNotes.API.Repositoties.Interfaces;
 using ManagingUserNotes.API.Repositoties.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ManagingUserNotes.API.Controllers
 {
@@ -88,5 +89,27 @@ namespace ManagingUserNotes.API.Controllers
             return Ok("Done successfully. ID of the created note : " + createdNote.Id);
         }
         #endregion
+
+        #region UpdateNote
+        [HttpPut]
+        [Route("UpdateNote/{noteId}")]
+        public async Task<IActionResult> UpdateNote(int noteId, NoteUpdateDto note)
+        {
+            var noteValid = await _noteRepository.GetNoteByIdAsync(noteId);
+            if (noteValid == null)
+            {
+                return NotFound();
+            }
+            var noteResult = _mapper.Map<Note>(note);
+            var updatedNote = await _noteRepository.UpdateNoteByIdAsync(noteId, noteResult);
+            if (updatedNote == null)
+            {
+                return NotFound();
+            }
+            return Ok(updatedNote);
+        }
+        #endregion
+
+
     }
 }

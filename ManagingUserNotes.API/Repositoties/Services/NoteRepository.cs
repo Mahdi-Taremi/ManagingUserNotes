@@ -1,5 +1,6 @@
 ﻿using ManagingUserNotes.API.DataAccess;
 using ManagingUserNotes.API.Entities;
+using ManagingUserNotes.API.Models;
 using ManagingUserNotes.API.Repositoties.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +40,15 @@ namespace ManagingUserNotes.API.Repositoties.Services
             _DbContextManagingUserNotes.Notes.Add(note);
             await _DbContextManagingUserNotes.SaveChangesAsync();
             return note;
+        }
+
+        public async Task<Note?> UpdateNoteByIdAsync(int noteId, Note note)
+        {
+            Note existingNote = await _DbContextManagingUserNotes.Notes.FindAsync(noteId);
+            existingNote.Content = note.Content;
+            existingNote.DateModified = DateTime.Now;
+            await _DbContextManagingUserNotes.SaveChangesAsync();
+            return existingNote;
         }
     }
 }

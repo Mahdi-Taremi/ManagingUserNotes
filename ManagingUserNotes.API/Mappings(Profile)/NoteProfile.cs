@@ -10,8 +10,11 @@ namespace ManagingUserNotes.API.Mappings_Profile_
         {
             CreateMap<Entities.Note, Models.NoteDto>();
             CreateMap<Entities.Note, Models.NoteWithoutRelationDto>();
+            CreateMap<Note, NoteWithoutRelationDto>();
+            CreateMap<NoteWithoutRelationDto, Note>();
             CreateMap<NoteWithDataAnnotationAndWithoutRelationDto, Note>();
             CreateMap<Note, NoteWithDataAnnotationAndWithoutRelationDto>();
+            CreateMap<NoteUpdateDto, Note>();
         }
     }
 }
