@@ -9,6 +9,7 @@ namespace ManagingUserNotes.API.Repositoties.Interfaces
         Task DeleteNoteByIdAsync(int noteId);
         Task<Note?> CreateNoteAsync(Note note);
         Task<Note?> UpdateNoteByIdAsync(int noteId, Note note);
+        Task<int> NewVisit(int noteId);
 
     }
 }

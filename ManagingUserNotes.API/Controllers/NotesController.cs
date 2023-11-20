@@ -48,6 +48,7 @@ namespace ManagingUserNotes.API.Controllers
             {
                 return NotFound();
             }
+            await _noteRepository.NewVisit(id);
             return Ok(note);
         }
         #endregion

@@ -50,5 +50,12 @@ namespace ManagingUserNotes.API.Repositoties.Services
             await _DbContextManagingUserNotes.SaveChangesAsync();
             return existingNote;
         }
+        public async Task<int> NewVisit(int noteId)
+        {
+            Note existingNote = await _DbContextManagingUserNotes.Notes.FindAsync(noteId);
+            ++existingNote.Views;
+            await _DbContextManagingUserNotes.SaveChangesAsync();
+            return existingNote.Views;
+        }
     }
 }
